@@ -1,76 +1,95 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Npp34-o8)
-# CSC4005 – Lab 0 Starter Kit
-## Lab 0: Environment Setup & Smoke-Test Pipeline
+# Report Lab 0 - Hello Deep Learning
 
-## Mục tiêu
-Lab 0 giúp sinh viên:
-- thiết lập môi trường Python cho học phần CSC4005,
-- cài đặt các thư viện cốt lõi,
-- chạy thử một pipeline học sâu tối thiểu,
-- sinh log, figure, checkpoint để chứng minh môi trường hoạt động,
-- chuẩn bị nền tảng cho các lab tiếp theo.
+## 1. Thiết lập môi trường
 
-## Yêu cầu phần mềm
-- Python 3.10 hoặc 3.11
-- pip
-- Khuyến nghị: VS Code / PyCharm / Jupyter
+Trong bài lab này, tôi đã tiến hành thiết lập môi trường làm việc cho môn học Deep Learning bằng cách sử dụng Anaconda.
+Tôi đã tạo một môi trường ảo riêng biệt với tên `csc4005-dl` và sử dụng Python phiên bản 3.10 để đảm bảo tính ổn định và tránh xung đột thư viện với các project khác.
 
-## Bước 1. Tạo môi trường
-### Cách 1: dùng venv
-```bash
-python -m venv csc4005_env
-```
+Sau khi tạo môi trường, tôi đã kích hoạt environment và tiến hành cập nhật pip lên phiên bản mới nhất.
+Tiếp theo, tôi cài đặt toàn bộ các thư viện cần thiết thông qua file `requirements.txt` được cung cấp trong repo.
 
-Kích hoạt môi trường:
+---
 
-- Windows:
-```bash
-csc4005_env\Scripts\activate
-```
+## 2. Thực hiện kiểm tra môi trường
 
-- macOS / Linux:
-```bash
-source csc4005_env/bin/activate
-```
+Sau khi cài đặt xong, tôi đã chạy script:
 
-## Bước 2. Cài thư viện
-```bash
-pip install -r requirements.txt
-```
+* `check_env.py`
 
-## Bước 3. Kiểm tra môi trường
-```bash
-python check_env.py
-```
+Mục đích của bước này là kiểm tra xem các thư viện quan trọng (như numpy, torch, matplotlib, v.v.) đã được cài đặt đúng và hoạt động bình thường hay chưa.
 
-## Bước 4. Chạy smoke-test pipeline
-```bash
-python run_smoke_test.py
-```
+Kết quả:
 
-## Output mong đợi
-Sau khi chạy thành công, hệ thống sẽ sinh ra:
-- `outputs/logs/env_check.txt`
-- `outputs/logs/smoke_test_log.txt`
-- `outputs/figures/loss_curve.png`
-- `outputs/checkpoints/smoke_model.pt`
+* Hệ thống đã tạo file `outputs/logs/env_check.txt`
+* Nội dung file cho thấy môi trường đã được thiết lập thành công, không có lỗi nghiêm trọng.
 
-## Cách nộp bài
-Sinh viên nộp lại toàn bộ project sau khi đã chạy xong, bao gồm:
-- README đã cập nhật thông tin máy và kết quả chạy
-- requirements.txt
-- check_env.py
-- run_smoke_test.py
-- config
-- toàn bộ thư mục outputs
-- ảnh chụp màn hình terminal hoặc output thành công
+---
 
-## Sinh viên cần cập nhật README này
-- Họ tên:
-- MSSV:
-- Lớp:
-- Hệ điều hành:
-- Python version:
-- Torch version:
-- Thiết bị chạy: CPU / GPU
-- Ghi chú lỗi gặp phải khi setup (nếu có):
+## 3. Chạy pipeline kiểm thử (smoke test)
+
+Tiếp theo, tôi thực hiện chạy script:
+
+* `run_smoke_test.py`
+
+Đây là một pipeline deep learning đơn giản nhằm kiểm tra toàn bộ luồng xử lý từ:
+
+* Load dữ liệu
+* Xây dựng model
+* Huấn luyện (training)
+* Ghi log và lưu kết quả
+
+Kết quả sau khi chạy:
+
+* File log: `outputs/logs/smoke_test_log.txt`
+* Biểu đồ loss: `outputs/figures/loss_curve.png`
+* Model checkpoint: `outputs/checkpoints/smoke_model.pt`
+
+Điều này chứng tỏ pipeline hoạt động đúng và môi trường đã sẵn sàng cho các bài lab tiếp theo.
+
+---
+
+## 4. Kết quả đạt được
+
+Sau khi hoàn thành các bước, project đã sinh ra đầy đủ các file output theo yêu cầu của đề bài, bao gồm:
+
+* Log kiểm tra môi trường
+* Log quá trình train
+* Biểu đồ loss
+* File model đã huấn luyện
+
+Ngoài ra, repo có thể chạy lại từ đầu mà không gặp lỗi, đảm bảo tính tái lập (reproducibility).
+
+---
+
+## 5. Khó khăn gặp phải và cách xử lý
+
+Trong quá trình thực hiện, tôi gặp một số vấn đề sau:
+
+### ❌ Lỗi thiếu thư viện
+
+* Khi chạy script ban đầu bị lỗi thiếu một số package
+* Cách xử lý: chạy lại `pip install -r requirements.txt`
+
+### ❌ Lỗi liên quan đến PyTorch (nếu có)
+
+* Một số trường hợp cài torch bị lỗi do GPU hoặc version không phù hợp
+* Cách xử lý: cài bản CPU bằng lệnh:
+  `pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu`
+
+### ❌ Lỗi chưa kích hoạt môi trường
+
+* Khi quên `conda activate`, chương trình không nhận đúng thư viện
+* Cách xử lý: kích hoạt lại environment trước khi chạy
+
+---
+
+## 6. Kết luận
+
+Qua bài lab này, tôi đã:
+
+* Nắm được cách thiết lập môi trường Deep Learning chuẩn
+* Hiểu cách tổ chức project theo cấu trúc chuẩn
+* Làm quen với pipeline cơ bản trong Deep Learning
+* Biết cách kiểm tra và debug môi trường
+
+Đây là bước nền tảng quan trọng để thực hiện các bài lab nâng cao trong học phần.
